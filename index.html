@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ananya - Portfolio</title>
+    <!-- Preload Hero Image for faster WebGL rendering -->
+    <link rel="preload" href="Pf 3 hero img.png" as="image">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +62,11 @@
             </div>
         </div>
     </header>
+
+    <div id="mobile-warning" class="mobile-warning">
+        <p>For the best immersive experience, please view on a laptop or desktop.</p>
+        <button id="close-warning" class="close-btn">&times;</button>
+    </div>
 
     <script type="module" src="js/script.js"></script>
 </body>

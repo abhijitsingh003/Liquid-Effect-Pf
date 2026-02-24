@@ -180,6 +180,14 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    opacity: 0;
+    animation: fadeInCanvas 1s ease forwards 0.5s;
+}
+
+@keyframes fadeInCanvas {
+    to {
+        opacity: 1;
+    }
 }
 
 /* Radial gradient overlay for hero section */
@@ -288,6 +296,58 @@ body {
     transform: translateY(-6px);
 }
 
+/* Mobile Warning Toast */
+.mobile-warning {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(4, 30, 34, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    z-index: 1000;
+    display: none;
+    /* Hidden by default on desktop */
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 400px;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.mobile-warning.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.mobile-warning p {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text-color);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
 /* Animations */
 @keyframes fadeUp {
     to {
@@ -394,6 +454,10 @@ body {
     .word {
         letter-spacing: 4px;
         font-size: 0.65rem;
+    }
+
+    .mobile-warning {
+        display: flex;
     }
 }
 

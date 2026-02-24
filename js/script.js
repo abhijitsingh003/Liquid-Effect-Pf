@@ -39,4 +39,21 @@ document.addEventListener('DOMContentLoaded', () => {
         btnTouch.style.setProperty('--x', `${x}px`);
         btnTouch.style.setProperty('--y', `${y}px`);
     });
+
+    // 4. Mobile experience warning toast
+    const mobileWarning = document.getElementById('mobile-warning');
+    const closeWarning = document.getElementById('close-warning');
+
+    if (mobileWarning && closeWarning) {
+        // Only trigger popup if mobile CSS is active (display == flex)
+        if (window.getComputedStyle(mobileWarning).display === 'flex') {
+            setTimeout(() => {
+                mobileWarning.classList.add('show');
+            }, 1000); // Slide up 1 second after page loads
+        }
+
+        closeWarning.addEventListener('click', () => {
+            mobileWarning.classList.remove('show');
+        });
+    }
 });
