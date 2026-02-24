@@ -1,0 +1,437 @@
+:root {
+    --bg-color: #000000;
+    --text-color: #ECECEC;
+    --accent-color: #21d4fd;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --heading-gradient: linear-gradient(to bottom, #ffffff, #888888);
+    --hero-overlay: radial-gradient(circle at center, rgba(33, 212, 253, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 1.5rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 92%;
+    max-width: 1400px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    z-index: 100;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    transition: backdrop-filter 0.4s ease, background 0.4s ease, padding 0.4s ease, top 0.4s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 1rem 3rem;
+    top: 1rem;
+    border: 1px solid var(--glass-border);
+}
+
+.nav-left .logo {
+    font-size: 1.8rem;
+    font-weight: 200;
+    letter-spacing: 3px;
+    background: var(--heading-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.nav-center {
+    display: flex;
+    gap: 3.5rem;
+}
+
+.nav-link {
+    position: relative;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--text-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--text-color);
+    opacity: 1;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.btn-touch {
+    position: relative;
+    padding: 0.5rem 1.2rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 200;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    overflow: hidden;
+    background: transparent;
+    transition: border-color 0.4s ease, background-color 0.4s ease, color 0.4s ease;
+}
+
+.btn-touch:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--glass-bg);
+}
+
+.btn-touch .btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-touch .cursor-glow {
+    position: absolute;
+    top: var(--y, 50%);
+    left: var(--x, 50%);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(33, 212, 253, 0.4) 0%, rgba(33, 212, 253, 0) 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.btn-touch:hover .cursor-glow {
+    opacity: 1;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+
+/* Canvas container for future WebGL liquid distortion */
+#canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#liquid-canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Radial gradient overlay for hero section */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--hero-overlay);
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Subtle dark-to-teal gradient to ensure left text readability without blurring the image */
+.gradient-fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(4, 30, 34, 0.8) 0%, rgba(4, 30, 34, 0.1) 60%, transparent 100%);
+    z-index: 4;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+/* Left - Quote */
+.hero-left {
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.quote {
+    font-size: 3.5rem;
+    font-weight: 200;
+    line-height: 1.25;
+    letter-spacing: -1.5px;
+    background: var(--heading-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s;
+}
+
+/* Right - Power Words */
+.hero-right {
+    position: relative;
+    height: 100%;
+    width: 50%;
+}
+
+/* Position near the raised hand (approx right side middle/lower) */
+.power-words {
+    position: absolute;
+    right: 2%;
+    top: 60%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+}
+
+.word {
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease;
+    cursor: default;
+    opacity: 0;
+    animation: fadeInRight 1.2s ease forwards;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.word:nth-child(1) {
+    animation-delay: 1s;
+}
+
+.word:nth-child(2) {
+    animation-delay: 1.2s;
+}
+
+.word:nth-child(3) {
+    animation-delay: 1.4s;
+}
+
+.word:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-6px);
+}
+
+/* Animations */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 0.9;
+        /* Much higher visibility */
+        transform: translateX(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .quote {
+        font-size: 3.2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar {
+        padding: 1.2rem 2rem;
+    }
+
+    .navbar.scrolled {
+        padding: 0.8rem 2rem;
+    }
+
+    .nav-center {
+        display: none;
+    }
+
+    .hero-content {
+        padding: 0 2.5rem;
+    }
+
+    .quote {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: 95%;
+        padding: 1rem 1.5rem;
+    }
+
+    .navbar.scrolled {
+        padding: 0.6rem 1.5rem;
+    }
+
+    .nav-left .logo {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+
+    .btn-touch {
+        padding: 0.4rem 1rem;
+        font-size: 0.75rem;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 2rem;
+    }
+
+    .hero-left {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .quote {
+        font-size: 2.4rem;
+        text-align: left;
+    }
+
+    .hero-right {
+        width: 100%;
+        height: auto;
+    }
+
+    .power-words {
+        position: relative;
+        right: 0;
+        top: 0;
+        transform: translateY(0);
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        margin-top: 1rem;
+    }
+
+    .word {
+        letter-spacing: 4px;
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        width: 98%;
+        padding: 0.8rem 1rem;
+        top: 0.5rem;
+        border-radius: 12px;
+    }
+
+    .nav-left .logo {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+
+    .btn-touch {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-content {
+        padding: 0 1.5rem;
+    }
+
+    .quote {
+        font-size: 1.8rem;
+        line-height: 1.3;
+    }
+
+    .power-words {
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+    }
+
+    .word {
+        letter-spacing: 3px;
+        font-size: 0.55rem;
+    }
+}
