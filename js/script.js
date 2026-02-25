@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('liquid-canvas');
             if (canvas) {
                 const app = LiquidBackground(canvas);
-                app.loadImage('Pf 3 hero img.png');
+                app.loadImage('Whisk_real.png');
                 app.liquidPlane.material.metalness = 0.75;
                 app.liquidPlane.material.roughness = 0.25;
                 app.liquidPlane.uniforms.displacementScale.value = 5;
